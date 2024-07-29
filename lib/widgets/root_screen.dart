@@ -1,4 +1,4 @@
-import 'package:e_commerce/screens/card_screen.dart';
+import 'package:e_commerce/screens/cart/cart_screen.dart';
 import 'package:e_commerce/screens/home_page.dart';
 import 'package:e_commerce/screens/profile_screen.dart';
 import 'package:e_commerce/screens/search_screen.dart';
