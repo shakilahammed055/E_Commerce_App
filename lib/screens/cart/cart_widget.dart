@@ -1,3 +1,5 @@
+import 'package:e_commerce/screens/cart/quantity_bottomsheet_widget.dart';
+import 'package:e_commerce/widgets/subtitles_text.dart';
 import 'package:e_commerce/widgets/titles_text.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
@@ -59,6 +61,44 @@ class CartWidget extends StatelessWidget {
                         )
                       ],
                     ),
+                    Row(
+                      children: [
+                        SubtitleTextWidget(
+                          label: "16\$",
+                          fontSize: 18,
+                          color: Colors.blue,
+                        ),
+                        Spacer(),
+                        OutlinedButton.icon(
+                          style: OutlinedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              side: BorderSide(
+                                width: 1.5,
+                                color: Colors.blue,
+                              )),
+                          onPressed: () async {
+                            await showModalBottomSheet(
+                              backgroundColor:
+                                  Theme.of(context).scaffoldBackgroundColor,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(20),
+                                  topRight: Radius.circular(20),
+                                ),
+                              ),
+                              context: context,
+                              builder: (context) {
+                                return QuantityBottomsheetWidget();
+                              },
+                            );
+                          },
+                          icon: Icon(IconlyLight.arrowDown2),
+                          label: Text("Qty: 6"),
+                        )
+                      ],
+                    )
                   ],
                 ),
               )

@@ -1,3 +1,4 @@
+import 'package:e_commerce/screens/cart/cart_bottom_checkout.dart';
 import 'package:e_commerce/screens/cart/cart_widget.dart';
 import 'package:e_commerce/services/assets_manager.dart';
 import 'package:e_commerce/widgets/empty_widget_bag.dart';
@@ -38,6 +39,7 @@ class CartScreen extends StatelessWidget {
                 return CartWidget();
               },
             ),
+            bottomSheet: CartBottomCheckout(),
           );
   }
 }
