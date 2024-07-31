@@ -1,5 +1,7 @@
 import 'package:e_commerce/consts/theme_data.dart';
 import 'package:e_commerce/providers/theme_provider.dart';
+import 'package:e_commerce/screens/inner_screens/products_details.dart';
+import 'package:e_commerce/screens/inner_screens/wishlist_screen.dart';
 import 'package:e_commerce/widgets/root_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -31,6 +33,10 @@ class MyApp extends StatelessWidget {
             theme: styles.themeData(
                 isDarkTheme: ThemeProvider.getIsDarkTheme, context: context),
             home: RootScreen(),
+            routes: {
+              ProductsDetails.routName: (context) => ProductsDetails(),
+              WishlistScreen.routeName: (context) => WishlistScreen(),
+            },
           );
         },
       ),

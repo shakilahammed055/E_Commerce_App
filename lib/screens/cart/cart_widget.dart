@@ -1,3 +1,4 @@
+import 'package:e_commerce/consts/app_constants.dart';
 import 'package:e_commerce/screens/cart/quantity_bottomsheet_widget.dart';
 import 'package:e_commerce/widgets/subtitles_text.dart';
 import 'package:e_commerce/widgets/titles_text.dart';
@@ -20,8 +21,7 @@ class CartWidget extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: FancyShimmerImage(
-                  imageUrl:
-                      "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.stuff.tv%2Fnews%2Ffinally-nikes-making-self-lacing-sneakers-all-hyperadapt-10%2F&psig=AOvVaw0fgXEJp0an4zt6EzrIZxbZ&ust=1722368405737000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCODL1bmAzYcDFQAAAAAdAAAAABAX",
+                  imageUrl: AppConstants.productImageUrl,
                   height: size.height * 0.1,
                   width: size.width * 0.2,
                 ),

@@ -24,6 +24,31 @@ class styles {
           color: isDarkTheme ? Colors.white : Colors.black,
         ),
       ),
+      inputDecorationTheme: InputDecorationTheme(
+        filled: true,
+        contentPadding: EdgeInsets.all(10),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            width: 1,
+            color: Colors.transparent,
+          ),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            width: 1,
+            color: Theme.of(context).colorScheme.error,
+          ),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            width: 1,
+            color: Theme.of(context).colorScheme.error,
+          ),
+          borderRadius: BorderRadius.circular(8),
+        ),
+      ),
     );
   }
 }
