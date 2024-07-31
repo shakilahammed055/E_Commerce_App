@@ -3,16 +3,16 @@ import 'package:e_commerce/services/assets_manager.dart';
 import 'package:e_commerce/widgets/products/products_widget.dart';
 import 'package:e_commerce/widgets/titles_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_iconly/flutter_iconly.dart';
 
-class SearchScreen extends StatefulWidget {
-  const SearchScreen({super.key});
+class WishlistScreen extends StatefulWidget {
+  static const routeName = "/WishlistScreen";
+  const WishlistScreen({super.key});
 
   @override
-  State<SearchScreen> createState() => _SearchScreenState();
+  State<WishlistScreen> createState() => _WishlistScreenState();
 }
 
-class _SearchScreenState extends State<SearchScreen> {
+class _WishlistScreenState extends State<WishlistScreen> {
   late TextEditingController searchTextController;
 
   @override
@@ -30,7 +30,7 @@ class _SearchScreenState extends State<SearchScreen> {
       child: Scaffold(
         appBar: AppBar(
           title: TitleTextWidget(
-            label: "Search Products",
+            label: "Wishlists(5)",
           ),
           leading: Padding(
             padding: const EdgeInsets.all(5.0),
@@ -41,27 +41,6 @@ class _SearchScreenState extends State<SearchScreen> {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              TextFormField(
-                controller: searchTextController,
-                decoration: InputDecoration(
-                  prefixIcon: Icon(IconlyLight.search),
-                  suffixIcon: IconButton(
-                    onPressed: () {
-                      setState(() {
-                        searchTextController.clear();
-                        FocusScope.of(context).unfocus();
-                      });
-                    },
-                    icon: Icon(
-                      IconlyLight.closeSquare,
-                      color: Colors.red,
-                    ),
-                  ),
-                ),
-                onFieldSubmitted: (value) {
-                  print(searchTextController.text);
-                },
-              ),
               Expanded(
                 child: DynamicHeightGridView(
                     builder: (context, index) {
