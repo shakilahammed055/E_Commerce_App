@@ -19,7 +19,6 @@ class SubtitleTextWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      //for align wrap this text widget to align
       label,
       style: TextStyle(
         fontSize: fontSize,
