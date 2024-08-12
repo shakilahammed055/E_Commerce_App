@@ -1,9 +1,14 @@
-import 'package:e_commerce/consts/app_constants.dart';
+import 'package:e_commerce/providers/viewed_recently_provider.dart';
 import 'package:e_commerce/screens/inner_screens/products_details.dart';
+import 'package:e_commerce/widgets/products/heart_button_widget.dart';
 import 'package:e_commerce/widgets/subtitles_text.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:provider/provider.dart';
+
+import '../../models/product_model.dart';
+import '../../providers/cart_provider.dart';
+import '../../services/my_app_functions.dart';
 
 class LatestArrivalProductsWidget extends StatelessWidget {
   const LatestArrivalProductsWidget({super.key});
@@ -11,67 +16,99 @@ class LatestArrivalProductsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    final productsModel = Provider.of<ProductModel>(context);
+    final cartProvider = Provider.of<CartProvider>(context);
+
+    final viewedProdProvider = Provider.of<ViewedProdProvider>(context);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
         onTap: () async {
-          Navigator.pushNamed(context, ProductsDetails.routName);
+          viewedProdProvider.addViewedProd(productId: productsModel.productId);
+          await Navigator.pushNamed(context, ProductDetailsScreen.routName,
+              arguments: productsModel.productId);
         },
         child: SizedBox(
-          width: size.width * 0.50,
+          width: size.width * 0.45,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Flexible(
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(12.0),
                   child: FancyShimmerImage(
-                    imageUrl: AppConstants.productImageUrl,
-                    width: size.width * 0.30,
-                    height: size.height * 0.15,
+                    imageUrl: productsModel.productImage,
+                    height: size.width * 0.24,
+                    width: size.width * 0.32,
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 8,
               ),
               Flexible(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    const SizedBox(
+                      height: 5,
+                    ),
                     Text(
-                      "Title" * 10,
+                      productsModel.productTitle,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
+                    ),
+                    const SizedBox(
+                      height: 5,
                     ),
                     FittedBox(
                       child: Row(
                         children: [
-                          IconButton(
-                            onPressed: () {},
-                            icon: Icon(
-                              IconlyLight.heart,
-                            ),
+                          HeartButtonWidget(
+                            productId: productsModel.productId,
                           ),
                           IconButton(
-                            onPressed: () {},
+                            onPressed: () async {
+                              if (cartProvider.isProdinCart(
+                                  productId: productsModel.productId)) {
+                                return;
+                              }
+                              try {
+                                await cartProvider.addToCartFirebase(
+                                    productId: productsModel.productId,
+                                    qty: 1,
+                                    context: context);
+                              } catch (e) {
+                                await MyAppFunctions.showErrorOrWarningDialog(
+                                  context: context,
+                                  subtitle: e.toString(),
+                                  fct: () {},
+                                );
+                              }
+                            },
                             icon: Icon(
-                              Icons.add_shopping_cart_rounded,
-                              size: 22,
+                              cartProvider.isProdinCart(
+                                productId: productsModel.productId,
+                              )
+                                  ? Icons.check
+                                  : Icons.add_shopping_cart_outlined,
                             ),
                           ),
                         ],
                       ),
                     ),
+                    const SizedBox(
+                      height: 5,
+                    ),
                     FittedBox(
                       child: SubtitleTextWidget(
-                        label: "166.5\$",
+                        label: "${productsModel.productPrice}\$",
+                        fontWeight: FontWeight.w600,
                         color: Colors.blue,
                       ),
-                    )
+                    ),
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ),

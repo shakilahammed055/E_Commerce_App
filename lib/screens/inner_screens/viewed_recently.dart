@@ -1,27 +1,25 @@
 import 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
-import 'package:e_commerce/providers/wishlist_provider.dart';
 import 'package:e_commerce/services/assets_manager.dart';
 import 'package:e_commerce/widgets/empty_widget_bag.dart';
 import 'package:e_commerce/widgets/products/products_widget.dart';
 import 'package:e_commerce/widgets/titles_text.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../providers/viewed_recently_provider.dart';
 
-import '../../services/my_app_functions.dart';
-
-class WishlistScreen extends StatelessWidget {
-  static const routName = "/WishlistScreen";
-  const WishlistScreen({super.key});
-  final bool isEmpty = true;
+class ViewedRecentlyScreen extends StatelessWidget {
+  static const routName = "/ViewedRecentlyScreen";
+  const ViewedRecentlyScreen({super.key});
+  final bool isEmpty = false;
   @override
   Widget build(BuildContext context) {
-    final wishlistProvider = Provider.of<WishlistProvider>(context);
+    final viewedProdProvider = Provider.of<ViewedProdProvider>(context);
 
-    return wishlistProvider.getWishlists.isEmpty
+    return viewedProdProvider.getViewedProds.isEmpty
         ? Scaffold(
             body: EmptyBagWidget(
-              imagePath: AssetsManager.bagWish,
-              title: "Nothing in ur wishlist yet",
+              imagePath: AssetsManager.orderBag,
+              title: "No viewed products yet",
               subtitle:
                   "Looks like your cart is empty add something and make me happy",
               buttonText: "Shop now",
@@ -36,19 +34,19 @@ class WishlistScreen extends StatelessWidget {
                 ),
               ),
               title: TitlesTextWidget(
-                  label: "Wishlist (${wishlistProvider.getWishlists.length})"),
+                  label:
+                      "Viewed recently (${viewedProdProvider.getViewedProds.length})"),
               actions: [
                 IconButton(
                   onPressed: () {
-                    MyAppFunctions.showErrorOrWarningDialog(
-                      isError: false,
-                      context: context,
-                      subtitle: "Clear Wishlist?",
-                      fct: () async {
-                        await wishlistProvider.clearWishlistFromFirebase();
-                        wishlistProvider.clearLocalWishlist();
-                      },
-                    );
+                    //  MyAppFunctions.showErrorOrWarningDialog(
+                    //   isError: false,
+                    //   context: context,
+                    //   subtitle: "Clear cart?",
+                    //   fct: () {
+                    //   viewedProdProvider.clearLocalWishlist();
+                    //   },
+                    // );
                   },
                   icon: const Icon(
                     Icons.delete_forever_rounded,
@@ -64,13 +62,12 @@ class WishlistScreen extends StatelessWidget {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ProductWidget(
-                    productId: wishlistProvider.getWishlists.values
-                        .toList()[index]
-                        .productId,
-                  ),
+                      productId: viewedProdProvider.getViewedProds.values
+                          .toList()[index]
+                          .productId),
                 );
               },
-              itemCount: wishlistProvider.getWishlists.length,
+              itemCount: viewedProdProvider.getViewedProds.length,
               crossAxisCount: 2,
             ),
           );

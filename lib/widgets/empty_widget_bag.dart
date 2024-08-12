@@ -3,67 +3,68 @@ import 'package:e_commerce/widgets/titles_text.dart';
 import 'package:flutter/material.dart';
 
 class EmptyBagWidget extends StatelessWidget {
-  final String imagePath, title, subtitle, buttonText;
-  const EmptyBagWidget(
-      {super.key,
-      required this.imagePath,
-      required this.title,
-      required this.subtitle,
-      required this.buttonText});
+  const EmptyBagWidget({
+    super.key,
+    required this.imagePath,
+    required this.title,
+    required this.subtitle,
+    required this.buttonText,
+  });
 
+  final String imagePath, title, subtitle, buttonText;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.only(top: 50),
-        child: Column(
-          children: [
-            Image.asset(
-              imagePath,
-              height: size.height * 0.35,
-              width: double.infinity,
-            ),
-            TitleTextWidget(
-              label: "Whoops",
-              fontSize: 40,
-              color: Colors.red,
-              fontWeight: FontWeight.bold,
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            SubtitleTextWidget(
-              label: title,
-              fontWeight: FontWeight.w700,
-              fontSize: 25,
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            SubtitleTextWidget(
+    return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
+      child: Column(
+        children: [
+          const SizedBox(
+            height: 50,
+          ),
+          Image.asset(
+            imagePath,
+            width: double.infinity,
+            height: size.height * 0.35,
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          const TitlesTextWidget(
+            label: "Whoops",
+            fontSize: 40,
+            color: Colors.red,
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          SubtitleTextWidget(
+            label: title,
+            fontWeight: FontWeight.w600,
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: SubtitleTextWidget(
               label: subtitle,
-              fontWeight: FontWeight.w500,
-              fontSize: 20,
+              fontWeight: FontWeight.w400,
             ),
-            SizedBox(
-              height: 25,
-            ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.all(10),
-              ),
-              onPressed: () {},
-              child: Text(
-                buttonText,
-                style: TextStyle(
-                  fontSize: 22,
-                ),
-              ),
-            )
-          ],
-        ),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                elevation: 0,
+                backgroundColor: Colors.red,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 15)),
+            onPressed: () {},
+            child: Text(buttonText),
+          ),
+        ],
       ),
     );
   }
